@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-12">
+    <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
+      <p class="h5">Hello {{details?.payer.name.given_name}} {{details?.payer.name.surname}}</p>
+    </div>
+  </div>
+  <div class="col-12">
+    <form class="form-horizontal form-material" id="imageForm" (ngSubmit)="onImage()"
+          [formGroup]="imageForm">
+      <div class="col-12">
+        <div class="row d-flex justify-content-center">
+          <div class="form-group mt-2 mt-md-3 mb-3 col-12 col-md-12">
+            <div class="input-group mb-3">
+              <div class="custom-file">
+                <input type="file" accept="image/png, .jpeg, .jpg"
+                       (change)="onImageChange($event.target.files[0]); fileChangeEvent($event)"
+                       class="form-control"
+                       formControlName="image" id="inputGroupFile01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
+            </div>
+            <image-cropper
+              *ngIf="tempImg"
+              [imageChangedEvent]="imageChangedEvent"
+              [maintainAspectRatio]="true"
+              [aspectRatio]="3 / 3"
+              format="png"
+              (imageCropped)="imageCropped($event)"
+            ></image-cropper>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="form-group mt-4 col-12 col-md-12">
+            <div class="row">
+              <div class="col-12 col-md-6 mt-2 mt-md-0 order-1 order-md-0">
+                <button id="close_modal" type="button"
+                        class="btn btn-secondary font-weight-bold text-uppercase py-2 w-100" (click)="onCancel()">
+                  No upload
+                </button>
+              </div>
+              <div class="col-12 col-md-6 order-0 order-md-1">
+                <button type="submit" [disabled]="!imageForm.valid"
+                        class="btn btn-info font-weight-bold text-uppercase py-2 w-100">
+                  Upload
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

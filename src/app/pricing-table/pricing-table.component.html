@@ -1,0 +1,32 @@
+<main>
+  <section class="main-pricing">
+    <div class="main-pricing-header">
+      <h2>San Andrés te necesita</h2>
+      <p>Compra paquetes de pixeles, todos los fondos se destinaran para ayudar a reconstruir <br> <span>Ayuda, Aporta y Ama</span>
+      </p>
+    </div>
+    <div class="main-pricing-table">
+      <article class="pricing-card" *ngFor="let price of pricesList">
+        <h4 class="title" [ngClass]="price?.style">{{price?.title}}</h4>
+        <br>
+        <i [ngClass]="'fal ' + price?.icon + ' fa-5x'"></i>
+        <br>
+        <div class="price">
+          <h1>
+            {{price?.pay | currency}}
+            <img src="assets/images/CO.png" alt="Colombia fang">
+          </h1>
+        </div>
+        <ul class="benefits" *ngFor="let description of price.descriptionList">
+          <li class="benefit-item"><span>{{description}}</span></li>
+        </ul>
+        <div class="button-form-custom">
+          <button type="button" [ngClass]="price?.btnStyle" (click)="goToPay(price)"
+                  data-toggle="modal" data-target="#exampleModal">
+            Comprar
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>

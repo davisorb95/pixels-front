@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-lg-12 mx-auto">
+    <div class="card ">
+      <div class="card-header">
+        <div class="bg-white shadow-sm p-3">
+          <!-- Credit card form tabs -->
+          <h3 class="text-center">Payment methods</h3>
+        </div> <!-- End -->
+        <!-- Credit card form content -->
+        <div class="tab-content">
+          <!-- credit card info-->
+          <div id="credit-card" class="tab-pane fade show active pt-3">
+            <form [formGroup]="mercadoPagoForm" (ngSubmit)="onBuy()">
+              <div class="form-group">
+                <h6>Email</h6>
+                <input type="email" formControlName="email" #email placeholder="Email" required
+                       class="form-control" (focusout)="changeEmail(email.value)">
+              </div>
+              <div class="form-group">
+                <h6>Name</h6>
+                <input type="text" formControlName="name" #name placeholder="Name"
+                       class="form-control" [readOnly]="userExists">
+              </div>
+              <div class="form-group">
+                <h6>Web</h6>
+                <input type="text" formControlName="web" placeholder="Link web"
+                       class="form-control" [readOnly]="userExists">
+              </div>
+              <ng-container *ngIf="!userExists">
+                <div class="form-group">
+                  <h6>Image</h6>
+                </div>
+                <div class="form-group">
+                  <form class="form-horizontal form-material" id="imageForm" (ngSubmit)="onImage()"
+                        [formGroup]="imageForm">
+                    <div class="col-12">
+                      <div class="row d-flex justify-content-center">
+                        <div class="form-group mt-2 mt-md-3 mb-3 col-12 col-md-12">
+                          <div class="input-group mb-3">
+                            <div class="custom-file">
+                              <input type="file" accept="image/png, .jpeg, .jpg"
+                                     (change)="onImageChange($event.target.files[0]); fileChangeEvent($event)"
+                                     class="form-control"
+                                     formControlName="image" id="inputGroupFile01">
+                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                          </div>
+                          <image-cropper
+                            *ngIf="tempImg"
+                            [imageChangedEvent]="imageChangedEvent"
+                            [maintainAspectRatio]="true"
+                            [aspectRatio]="3 / 3"
+                            format="png"
+                            (imageCropped)="imageCropped($event)"
+                          ></image-cropper>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </ng-container>
+              <div class="card-footer text-center" [class.d-none]="!mercadoPagoForm.valid">
+                <div class="row">
+                  <div class="col-12">
+                    <h4>Pay with</h4>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div #paypalRef></div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <button type="submit" [disabled]="!mercadoPagoForm.valid"
+                            class="btn btn-mercado-pago" id="mercadopago-button">
+                      Mercado Pago
+                    </button>
+                  </div>
+                </div>
+                <small class="text-danger" *ngIf="!mercadoPagoForm.valid">Required information</small>
+              </div>
+            </form>
+          </div>
+          <!-- Paypal info -->
+          <div id="paypal" class="tab-pane fade pt-3">
+            <h6 class="pb-2">Pay with paypal</h6>
+            <div #paypalRef></div>
+          </div> <!-- End -->
+        </div>
+        <!-- End -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mercadopago -->
+<script type="text/javascript">
+  (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
+</script>

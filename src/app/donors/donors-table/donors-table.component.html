@@ -1,0 +1,44 @@
+<mat-form-field>
+  <mat-label>Escribe algo...</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pixels" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Photo Column -->
+    <ng-container matColumnDef="photo">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row"><img [src]="row.photo" alt="user photo" class="circle-img"> </td>
+    </ng-container>
+
+
+    <!-- FullName Column -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+      <td mat-cell *matCellDef="let row"> {{row.fullName}} </td>
+    </ng-container>
+
+    <!-- Url Column -->
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> Url </th>
+      <td mat-cell *matCellDef="let row"> <a [href]="row.url" class="custom-link">{{row.url}}</a> </td>
+    </ng-container>
+
+    <!-- Contribute Column -->
+    <ng-container matColumnDef="contribute">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+      <td mat-cell *matCellDef="let row"> {{row.contribute | currency: '': row.currency + ' '}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No se encontró ningúna coindicencia</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+</div>

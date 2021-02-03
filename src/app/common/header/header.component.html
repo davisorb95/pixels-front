@@ -1,0 +1,30 @@
+<header>
+  <i class="fas fa-bars burger-button" (click)="showHideMenu()"></i>
+  <nav id="navBar">
+    <div class="nav-left-section">
+      <img src="assets/images/pixel-logo.svg" alt="logo" (click)="redirectTo(routeName.HOME)">
+    </div>
+    <ul class="nav-right-section">
+      <li class="ml-2">
+        <a class="link-selected" [routerLink]="'/' + routeName.PRICING_TABLE">Comprar</a>
+      </li>
+      <li class="ml-2">
+        <a class="link-selected" [routerLink]="'/' + routeName.DONORS">Donadores</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle nav-user" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+          <i class="fas fa-globe"></i>
+          {{ activeLang | uppercase }} <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="dropdownMenuButton">
+          <li class="dropdown-item" (click)="changeLanguage('es')">ES</li>
+          <li class="dropdown-item" (click)="changeLanguage('en')">EN</li>
+          <li class="dropdown-item" (click)="signOut()">
+            <i class="far fa-sign-out"></i> Cerrar sesión
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>

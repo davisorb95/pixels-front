@@ -1,0 +1,38 @@
+<main>
+  <section class="main-hero">
+    <img src="assets/images/banner-1.png" alt="banner">
+    <h1>{{ 'home.title' | translate }}<br>
+      <span>Ayuda, Aporta y Contribuye</span><br>
+      Compra pixeles y desbloque el video <br>
+      Todos los fondos serviran para reconstruir.
+    </h1>
+  </section>
+  <section class="main-description">
+    <h2>Entre más compres, más rapido se completara el desafio <br> <span>desbloqueando ganamos todos</span></h2>
+    <ul>
+      <li>Compra pixeles <span>desbloquea el video</span></li>
+      <li>Disfruta de tus artistas <span>Ayuda a San Andrés</span></li>
+    </ul>
+  </section>
+  <section class="main-hero" *ngIf="media !== ''">
+    <iframe [src]="media" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </section>
+  <div class="button-form-custom btn-fixed-right">
+    <button type="button" class="btn-main" (click)="goToPrices()">
+      <i class="far fa-cart-plus"></i>
+      Comprar
+    </button>
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Top 25 donadores">
+          <app-donors-table [donors]="topDonors" [pageSizeOptions]="topPageSizeOptions"></app-donors-table>
+        </mat-tab>
+        <mat-tab label="Últimos donadores">
+          <app-donors-table [donors]="latestDonors" [pageSizeOptions]="latestPageSizeOptions"></app-donors-table>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</main>
